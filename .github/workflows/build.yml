@@ -24,6 +24,7 @@ jobs:
         # to prevent duplicate compilation by the Arduino CLI.
         cp src/main.cpp AI-pocke_Media-hub.ino
         cp src/secrets.h secrets.h
+        cp src/MjpegClass.h MjpegClass.h
         rm -rf src
 
     - name: SETUP ARDUINO CLI (LOAD THE GUN)
