@@ -45,6 +45,7 @@ jobs:
         arduino-cli lib install "Adafruit NeoPixel"
         arduino-cli lib install "DFRobotDFPlayerMini"
         arduino-cli lib install "Radio"
+        arduino-cli lib install "JPEGDEC"
 
     - name: COMPILE SKETCH (STRIKE DOWN WITH VENGEANCE)
       run: |
