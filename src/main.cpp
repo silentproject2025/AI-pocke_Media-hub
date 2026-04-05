@@ -354,12 +354,12 @@ AppState previousState = STATE_BOOT;
 AppState transitionTargetState;
 
 // ============ BUTTONS ============
-#define BTN_SELECT  0
-#define BTN_UP      41
-#define BTN_DOWN    40
-#define BTN_RIGHT   38
-#define BTN_LEFT    39
-#define BTN_BACK    42
+#define BTN_SELECT  21
+#define BTN_UP      15
+#define BTN_DOWN    16
+#define BTN_RIGHT   47
+#define BTN_LEFT    33
+#define BTN_BACK    34
 #define BTN_ACT     LOW
 
 // ============ API ENDPOINT ============
@@ -6038,7 +6038,7 @@ void drawFileManager() {
 
   if (fileListCount == 0) {
             delay(100);
-    if (beginSD()) {
+    Serial.println(F("> Attempting SD...")); if (beginSD()) {
       File root = SD.open("/");
       File file = root.openNextFile();
       while(file && fileListCount < 20) {
@@ -6506,7 +6506,7 @@ void clearChatHistory() {
   }
   
             delay(100);
-  if (beginSD()) {
+  Serial.println(F("> Attempting SD...")); if (beginSD()) {
     if (SD.exists(CHAT_HISTORY_FILE)) {
       if (SD.remove(CHAT_HISTORY_FILE)) {
         showStatus("Chat history\ncleared!", 1500);
@@ -9607,7 +9607,7 @@ void saveWikiBookmark() {
   }
 
             delay(100);
-  if (beginSD()) {
+  Serial.println(F("> Attempting SD...")); if (beginSD()) {
     File file = SD.open("/wiki_bookmarks.txt", FILE_APPEND);
     if (file) {
       file.println(currentArticle.title + "|" + currentArticle.url);
@@ -9624,7 +9624,7 @@ void saveWikiBookmark() {
 void loadMjpegFilesList() {
     if (!sdCardMounted) return;
 
-    if (beginSD()) {
+    Serial.println(F("> Attempting SD...")); if (beginSD()) {
         File root = SD.open("/mjpeg");
         if (!root || !root.isDirectory()) {
             SD.mkdir("/mjpeg");
@@ -9671,7 +9671,7 @@ void playSelectedMjpeg(int index) {
 
     String path = "/mjpeg/" + mjpegFileList[index];
 
-    if (beginSD()) {
+    Serial.println(F("> Attempting SD...")); if (beginSD()) {
         File file = SD.open(path);
         if (file) {
             mjpegIsPlaying = true;
@@ -11650,7 +11650,7 @@ void updateLateInit() {
     switch(lateInitPhase) {
         case 1: // Storage
             delay(100);
-            if (beginSD()) {
+            Serial.println(F("> Attempting SD...")); if (beginSD()) {
                 sdCardMounted = true;
                 addBootStatus("> STORAGE.......... [SD OK]", 20);
             } else {
@@ -11658,7 +11658,7 @@ void updateLateInit() {
                 addBootStatus("> STORAGE.......... [NO SD]", 20);
             }
             yield();
-            if (LittleFS.begin(true)) {
+            Serial.println(F("> Attempting LittleFS...")); if (LittleFS.begin(true)) {
                 addBootStatus("> FILESYSTEM....... [OK]", 30);
             } else {
                 addBootStatus("> FILESYSTEM....... [FAIL]", 30);
@@ -11820,12 +11820,12 @@ void setup() {
     #endif
 
     pinMode(LED_BUILTIN, OUTPUT);
-    pinMode(BTN_SELECT, INPUT);
-    pinMode(BTN_UP, INPUT);
-    pinMode(BTN_DOWN, INPUT);
-    pinMode(BTN_LEFT, INPUT);
-    pinMode(BTN_RIGHT, INPUT);
-    pinMode(BTN_BACK, INPUT);
+    pinMode(BTN_SELECT, INPUT_PULLUP);
+    pinMode(BTN_UP, INPUT_PULLUP);
+    pinMode(BTN_DOWN, INPUT_PULLUP);
+    pinMode(BTN_LEFT, INPUT_PULLUP);
+    pinMode(BTN_RIGHT, INPUT_PULLUP);
+    pinMode(BTN_BACK, INPUT_PULLUP);
     pinMode(BATTERY_PIN, INPUT);
     analogSetPinAttenuation(BATTERY_PIN, ADC_11db);
     pinMode(DFPLAYER_BUSY_PIN, INPUT_PULLUP);
@@ -12754,7 +12754,7 @@ void loop() {
             String selectedFile = fileList[fileListSelection].name;
             showStatus("Opening " + selectedFile, 500);
             delay(100);
-            if (beginSD()) {
+            Serial.println(F("> Attempting SD...")); if (beginSD()) {
               File file = SD.open("/" + selectedFile, FILE_READ);
               if (file) {
                 fileContentToView = "";
