@@ -354,12 +354,12 @@ AppState previousState = STATE_BOOT;
 AppState transitionTargetState;
 
 // ============ BUTTONS ============
-#define BTN_SELECT  21
-#define BTN_UP      15
-#define BTN_DOWN    16
-#define BTN_RIGHT   47
-#define BTN_LEFT    33
-#define BTN_BACK    34
+#define BTN_SELECT  0
+#define BTN_UP      41
+#define BTN_DOWN    40
+#define BTN_RIGHT   38
+#define BTN_LEFT    39
+#define BTN_BACK    42
 #define BTN_ACT     LOW
 
 // ============ API ENDPOINT ============
@@ -9695,7 +9695,7 @@ void playSelectedMjpeg(int index) {
                     changeState(STATE_MAIN_MENU);
                     delay(200);
                 }
-                yield();
+                yield(); delay(500);
             }
             file.close();
         } else {
@@ -11657,7 +11657,7 @@ void updateLateInit() {
                 sdCardMounted = false;
                 addBootStatus("> STORAGE.......... [NO SD]", 20);
             }
-            yield();
+            yield(); delay(500);
             Serial.println(F("> Attempting LittleFS...")); if (LittleFS.begin(true)) {
                 addBootStatus("> FILESYSTEM....... [OK]", 30);
             } else {
