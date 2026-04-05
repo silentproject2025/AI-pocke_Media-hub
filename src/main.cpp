@@ -26,8 +26,6 @@
 #include "MjpegClass.h"
 #include "DFRobotDFPlayerMini.h"
 #include <Wire.h>
-#include <radio.h>
-#include <RDA5807M.h>
 #define COLOR_BG        0x0000  // Pure Black
 #define COLOR_PRIMARY   0xFFFF  // White
 #define COLOR_SECONDARY 0x7BEF  // Slate Gray
@@ -220,30 +218,8 @@ GFXcanvas16 canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 // ============ RADIO RDA5807M ============
 RDA5807M radio;
 RDSParser rds;
-uint16_t radioFrequency = 10110; // Default 101.1 MHz
 int radioVolume = 8;
 bool radioStereo = true;
-bool radioMute = false;
-bool radioBassBoost = false;
-String radioRDS = "";
-String radioRT = ""; // Radio Text
-struct RadioPreset {
-  uint16_t freq;
-  const char* name;
-};
-
-RadioPreset radioPresets[] = {
-  {8760, "Hard Rock FM"},
-  {9080, "Virgin Radio"},
-  {9510, "Kis FM"},
-  {9870, "Gen FM"},
-  {10110, "Jak FM"},
-  {10500, "Prambors"},
-  {10190, "Bahana FM"},
-  {9430, "Sonora FM"},
-  {10460, "Trijaya FM"},
-  {10770, "RRI Pro 2"}
-};
 int radioSelectedPreset = -1;
 bool isRadioSeeking = false;
 bool isRadioScanning = false;
