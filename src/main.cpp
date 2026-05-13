@@ -213,9 +213,26 @@ typedef struct {
 // Pin MOSI (11) dan SCLK (12) sudah sesuai dengan default VSPI hardware
 Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 GFXcanvas16 canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+#include <radio.h>
+#include <RDA5807M.h>
 #include <RDSParser.h>
 
+struct RadioPreset {
+  int freq;
+  const char* name;
+};
+
+
 // ============ RADIO RDA5807M ============
+int radioFrequency = 10110;
+String radioRDS = "";
+String radioRT = "";
+bool radioMute = false;
+bool radioBassBoost = false;
+RadioPreset radioPresets[10] = {
+  {8760, "Radio 1"}, {9020, "Radio 2"}, {9240, "Radio 3"}, {9510, "Radio 4"}, {9810, "Radio 5"},
+  {10110, "Radio 6"}, {10220, "Radio 7"}, {10410, "Radio 8"}, {10620, "Radio 9"}, {10800, "Radio 10"}
+};
 RDA5807M radio;
 RDSParser rds;
 int radioVolume = 8;
